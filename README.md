@@ -16,7 +16,6 @@ A MySQL-based Banking Transaction Management System showcasing database design, 
 * `account.csv`: Sample dataset for accounts.
 * `trnx.csv`: Sample transfer instructions.
 * `week14.sql`: SQL script containing schema, stored procedures, and reports.
-* `week14.pdf`: Reference documentation.
 
 ## How to Run
 
