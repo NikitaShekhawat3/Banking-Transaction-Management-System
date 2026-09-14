@@ -30,7 +30,7 @@ USE Bank;
 2. **Run the SQL Script**:
 
 ```sql
-SOURCE week14.sql;
+SOURCE BTMS.sql;
 ```
 
 3. **Load CSV Data**:
