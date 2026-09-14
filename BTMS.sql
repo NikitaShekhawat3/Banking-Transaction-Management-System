@@ -83,21 +83,22 @@ BEGIN
   UPDATE account SET balance = to_bal + transfer_amt WHERE account_number = to_acc;
   
   -- Insert a log record of the transaction
-  INSERT INTO move_funds_log(account_number, move_fund_type,use week14a;
+ INSERT INTO move_funds_log(account_number, move_fund_type,amount, timestamp)
+ VALUES (from_acc, 'withdraw', transfer_amt, NOW());
 
-LOCK TABLES account WRITE;
-
-CALL transfer_funds_1('52149', '15873', 250);
-
-UNLOCK TABLES; amount, timestamp)
-  VALUES (from_acc, 'withdraw', transfer_amt, NOW());
-
-  INSERT INTO move_funds_log(account_number, move_fund_type, amount, timestamp)
-  VALUES (to_acc, 'deposit', transfer_amt, NOW());
+ INSERT INTO move_funds_log(account_number, move_fund_type, amount, timestamp)
+ VALUES (to_acc, 'deposit', transfer_amt, NOW());
   
   COMMIT;
 END//
 DELIMITER ;
+
+USE week14a;
+LOCK TABLES account WRITE;
+
+CALL transfer_funds_1('52149', '15873', 250);
+
+UNLOCK TABLES;
 
 GRANT EXECUTE ON PROCEDURE week14a.transfer_funds_1 TO 'saradhi'@'localhost';
 
