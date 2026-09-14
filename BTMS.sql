@@ -107,7 +107,7 @@ GRANT EXECUTE ON PROCEDURE week14a.transfer_funds_1 TO 'pbhaduri'@'localhost';
 
 --task6b
 mysql -u saradhi -p
-LOCK TABLES week14a.account READ;
+LOCK TABLES week14a.account WRITE;
 SET @from_acc = (SELECT from_acc FROM move_funds LIMIT 1);
 SET @to_acc = (SELECT to_acc FROM move_funds LIMIT 1);
 SET @amount = (SELECT transfer_amount FROM move_funds LIMIT 1);
@@ -117,7 +117,7 @@ UNLOCK TABLES;
 
 --task6c
 mysql -u pbhaduri -p
-LOCK TABLES account READ;
+LOCK TABLES account WRITE;
 SET @from_acc = (SELECT from_acc FROM move_funds LIMIT 1);
 SET @to_acc = (SELECT to_acc FROM move_funds LIMIT 1);
 SET @amount = (SELECT transfer_amount FROM move_funds LIMIT 1);
