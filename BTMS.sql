@@ -136,7 +136,7 @@ BEGIN
    
     SELECT balance INTO from_balance FROM account WHERE account_number = from_acc;
    
-    IF from_balance < 100 OR from_balance < transfer_amt/2 THEN
+    IF from_balance < 100 OR from_balance < transfer_amt THEN
         ROLLBACK;
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Insufficient balance for transfer';
     ELSE
