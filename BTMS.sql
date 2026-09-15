@@ -211,13 +211,34 @@ WHERE move_fund_type = 'deposit'
 GROUP BY account_number;
 
 --task10c
-SELECT a.account_number, a.original_balance,
-COALESCE(b.total_deposit, 0) AS total_deposit, COALESCE(c.total_withdraw, 0) AS total_withdraw,
-(a.original_balance + COALESCE(b.total_deposit, 0) - COALESCE(c.total_withdraw, 0)) AS new_balance
+SELECT
+    a.account_number,
+    a.original_balance,
+    a.balance,
+    COALESCE(b.total_deposit, 0) AS total_deposit,
+    COALESCE(c.total_withdraw, 0) AS total_withdraw,
+    CASE
+        WHEN a.original_balance =
+             a.balance
+             + COALESCE(b.total_deposit, 0)
+             - COALESCE(c.total_withdraw, 0)
+        THEN 'VALID'
+        ELSE 'INVALID'
+    END AS integrity_status
 FROM account a
-LEFT JOIN (SELECT account_number, SUM(amount) AS total_deposit
-FROM move_funds_log WHERE move_fund_type = 'deposit' GROUP BY account_number) b ON a.account_number = b.account_number
-LEFT JOIN (SELECT  account_number, SUM(amount) AS total_withdraw
-FROM move_funds_log WHERE move_fund_type = 'withdraw' GROUP BY account_number) c ON a.account_number = c.account_number;
 
+LEFT JOIN (
+    SELECT account_number, SUM(amount) AS total_deposit
+    FROM move_funds_log
+    WHERE move_fund_type = 'deposit'
+    GROUP BY account_number
+) b
+ON a.account_number = b.account_number
 
+LEFT JOIN (
+    SELECT account_number, SUM(amount) AS total_withdraw
+    FROM move_funds_log
+    WHERE move_fund_type = 'withdraw'
+    GROUP BY account_number
+) c
+ON a.account_number = c.account_number;
