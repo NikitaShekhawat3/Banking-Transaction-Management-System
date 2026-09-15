@@ -190,11 +190,11 @@ GRANT EXECUTE ON PROCEDURE week14a.main_transfer_2 TO 'pbhaduri'@'localhost';
 --task9
 mysql -u saradhi -p
 use week14a;
-call main_transfer_2();
+CALL main_transfer_2();
 
 mysql -u pbhaduri -p
 use week14a;
-call main_transfer_2();
+CALL main_transfer_2();
 
 
 --task10a
